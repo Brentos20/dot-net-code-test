@@ -21,9 +21,15 @@ namespace Vulture.Coding.Test.Tests
         }
 
         [TestMethod]
-        public void testIsPalinSuccess()
+        public void TestIsPalinSuccess()
         {
-            Assert.IsTrue(program.isPallindrome("hannah"));
+            Assert.IsTrue(program.isPalindrome("hannah"));
+        }
+
+        [TestMethod]
+        public void TestIsPallinFail()
+        {
+            Assert.IsFalse(program.isPalindrome("abcgicba"));
         }
     }
 }

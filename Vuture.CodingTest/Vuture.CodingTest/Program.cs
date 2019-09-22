@@ -19,7 +19,7 @@ namespace Vuture.CodingTest
             return count;
         }
 
-        public bool isPallindrome(string text)
+        public bool isPalindrome(string text)
         {
             char[] textRev = text.ToCharArray();
             Array.Reverse(textRev);

@@ -1,20 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace Vuture.CodingTest
 {
     public class Program
     {
 
+        private StringComparison IgnoreCase;
+
+        public Program()
+        {
+            IgnoreCase = StringComparison.OrdinalIgnoreCase;
+        }
+
         public int CountOccurs(char lett, string text)
         {
             int count = 0;
+            lett = char.ToLower(lett);
+            text = text.ToLower();
             foreach (char ch in text)
             {
-                if (char.ToLower(ch).Equals(char.ToLower(lett))) count++;
+                if (ch.Equals(lett)) count++;
             }
             return count;
         }
@@ -25,17 +33,20 @@ namespace Vuture.CodingTest
             int subLength = sString.Length;
             for(int i = 0; i<text.Length-subLength; i ++)
             {
-                if (text.Substring(i, subLength).Equals(sString, StringComparison.OrdinalIgnoreCase)) count++;
+                if (text.Substring(i, subLength).Equals(sString, IgnoreCase)) count++;
             }
             return count;
         }
 
         public bool IsPalindrome(string text)
         {
-            char[] textRev = text.ToCharArray();
-            Array.Reverse(textRev);
-
-            return string.Equals(text, new string(textRev), StringComparison.OrdinalIgnoreCase);
+            text = text.ToLower();
+            int Length = text.Length;
+            for(int i = 0; i < Length/2; i++)
+            {
+                if (text[i] != text[Length - i - 1]) return false;
+            }
+            return true;
         }
 
         public string CensoredWordsOccurSum(List<string> CenWords, string text)
@@ -49,7 +60,6 @@ namespace Vuture.CodingTest
                 total += thisTotal;
                 ToReturn.Append(string.Format("{0}: {1}, ", cenWord, thisTotal));
             }
-
             return ToReturn.Append("total: " + total).ToString();
         }
 
@@ -59,23 +69,20 @@ namespace Vuture.CodingTest
 
             foreach (string CenWord in CenWords)
             {
-                
                 int occurs = CountOccurs(CenWord, text);
                 
                 while (occurs>0)
                 {
-                    int start = text.IndexOf(CenWord, StringComparison.OrdinalIgnoreCase);
+                    int start = text.IndexOf(CenWord, IgnoreCase);
                     string wordToCensor = text.Substring(start, CenWord.Length);
-                    cenText = cenText.Replace(wordToCensor, Censored(wordToCensor));
+                    cenText = cenText.Replace(wordToCensor, Censor(wordToCensor));
                     occurs--;
-
                 }
-                
             }
             return cenText;
         }
 
-        private string Censored(string cenWord)
+        private string Censor(string cenWord)
         {
             int length = cenWord.Length;
             char fLett = cenWord[0];
@@ -93,7 +100,7 @@ namespace Vuture.CodingTest
 
             foreach(string Word in TextAsList)
             {
-                if (IsPalindrome(Word)) censoredText.Append(Censored(Word));
+                if (IsPalindrome(Word)) censoredText.Append(Censor(Word));
                 else censoredText.Append(Word);
 
                 censoredText.Append(" ");
@@ -101,10 +108,8 @@ namespace Vuture.CodingTest
             censoredText.Remove(censoredText.Length - 1, 1);
             return censoredText.ToString();
         }
-
-        static void Main(string[] args)
-        {
-
-        }
+        static void Main(string[] args){}
     }
+    
+
 }

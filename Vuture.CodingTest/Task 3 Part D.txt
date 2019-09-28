@@ -1,0 +1,3 @@
+- Implement the functionality to allow the user to type out a list of words, or choose the file that consist of the list
+- Automatically read from a file (e.g. .csv) that is expected to contain the list
+- Read from a database (SQL) that is expected to contain the list 

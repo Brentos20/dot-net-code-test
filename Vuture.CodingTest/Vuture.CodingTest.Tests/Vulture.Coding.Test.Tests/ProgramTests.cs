@@ -87,7 +87,7 @@ namespace Vulture.Coding.Test.Tests
         [TestMethod]
         public void TestIsPalinWithPunc()
         {
-            Assert.IsTrue(MockP.IsPalindrome("a,b.b[a"));
+            Assert.IsTrue(MockP.IsPalindrome("god saved eva's dog"));
         }
     }
 
@@ -102,25 +102,28 @@ namespace Vulture.Coding.Test.Tests
         public TestCensorWords()
         {
             MockP = new Program();
-            MockList = new List<string>(new string[] { "meow", "woof" });
-            MockText = "I have a cat named Meow and a dog name Woof. I love the dog a lot. He is larger than a small horse.";
         }
-
         [TestMethod]
         public void TestCensorWordsOccur()
         {
-            Assert.AreEqual("cat: 1, dog: 2, large: 1, total: 4", MockP.CensoredWordsOccurSum(MockList, MockText));
+            MockList = new List<string>(new string[] { "cat", "dog", "large" });
+            MockText = "I have a cat named Meow and a dog name Woof. I love the dog a lot. He is larger than a small horse.";
+            MockResult = "cat: 1, dog: 2, large: 1, total: 4";
+            Assert.AreEqual(MockResult, MockP.CensoredWordsOccurSum(MockList, MockText));
         }
         [TestMethod]
         public void TestCensorTextSuccess()
         {
-            MockResult = "I have a cat named M$$w and a dog name W$$f. I love the dog a lot. He is larger than a small horse.";
+            MockList = new List<string>(new string[] { "meow", "woof", "large" });
+            MockText = "I have a cat named Meow and a dog name Woof. I love the dog a lot. He is larger than a small horse.";
+            MockResult = "I have a cat named M$$w and a dog name W$$f. I love the dog a lot. He is l$$$er than a small horse.";
             Assert.AreEqual(MockResult, MockP.CensorText(MockList, MockText));
         }
 
         [TestMethod]
         public void TestCensorPalindrome()
         {
+            MockText = "Anna went to vote in the election to fulfil her civic duty";
             MockResult = "A$$a went to vote in the election to fulfil her c$$$c duty";
 
             Assert.AreEqual(MockResult, MockP.CensorPalindrones(MockText));

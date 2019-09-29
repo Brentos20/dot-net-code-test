@@ -8,7 +8,7 @@ namespace Vuture.CodingTest
     public class Program
     {
 
-        private StringComparison IgnoreCase;
+        private readonly StringComparison IgnoreCase;
 
         public Program()
         {

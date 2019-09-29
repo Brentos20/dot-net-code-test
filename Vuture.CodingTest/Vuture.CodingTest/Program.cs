@@ -30,10 +30,15 @@ namespace Vuture.CodingTest
         public int CountOccurs(string sString, string text)
         {
             int count = 0;
-            int subLength = sString.Length;
-            for(int i = 0; i<text.Length-subLength; i ++)
+            int length = sString.Length;
+            int pos;
+            sString = sString.ToLower();
+            text = text.ToLower();
+            while (text.Contains(sString))
             {
-                if (text.Substring(i, subLength).Equals(sString, IgnoreCase)) count++;
+                count++;
+                pos = text.IndexOf(sString);
+                text = text.Remove(pos,length);
             }
             return count;
         }

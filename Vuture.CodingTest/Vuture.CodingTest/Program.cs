@@ -46,8 +46,9 @@ namespace Vuture.CodingTest
         public bool IsPalindrome(string text)
         {
             text = text.ToLower();
+            text = new string(text.Where(c => !char.IsPunctuation(c)).ToArray());
             int Length = text.Length;
-            for(int i = 0; i < Length/2; i++)
+            for (int i = 0; i < Length/2; i++)
             {
                 if (text[i] != text[Length - i - 1]) return false;
             }
